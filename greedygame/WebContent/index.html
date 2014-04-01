@@ -1,0 +1,52 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<script src="jquery-1.9.1.js"></script>
+<script>
+
+getall();
+
+
+function getall()
+{
+	var urlStart='';
+	var url=urlStart+"Servlet/controllerSearchAllTag";
+	var posting = $.post( url, {} );
+	posting.done(function(data){	
+	$( "#tags" ).empty().append(data.tags);
+	$( "#Result" ).empty().append(data.url);
+	
+	});
+}
+function search()
+{
+	var urlStart='';
+	var url=urlStart+"Servlet/controllerSetAndFindData";
+	var a=document.getElementById('data').value;
+	var posting = $.post( url, { data : a } );
+
+	posting.done(function(data){
+	
+	if(data.response='success')
+	{
+	$( "#Result" ).empty().append(data.bookmark);
+	}
+
+	});
+	
+}
+</script>
+</head>
+<body>
+<pre>
+To add new bookmark: type: url,tag1,tag2,tag3 [Add]
+To search: type: tag in field and click [Search]
+</pre>
+<input id="data" name="data" type="textbox" value="" placeholder="www.greedy.com,Arink,<tag>"></input>
+<input type="button" value="SEARCH/ADD" onClick="search()"></input>
+<br/>
+Tags: <div id="tags"></div>
+<br/>
+Search Results: <div id="Result"></div>
+</body>
+</html>
